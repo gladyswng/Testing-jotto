@@ -9,10 +9,12 @@ const Congrats: React.FC<CongratsProps> = ({ success }) => {
   return (
     <div>
       {success? 
+        // if success 
         <div data-test="component-congrats">
           <span data-test="congrats-message">Congratulations! You guessed the word</span>
         </div>
         :
+        // if not success
         <div data-test="component-congrats">
 
         </div>
