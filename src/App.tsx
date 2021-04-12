@@ -8,11 +8,11 @@ interface AppProps {
 
 const App: React.FC<AppProps> = ({}) => {
   return (
-    <div>
-      <h1>Hey testing</h1>
-      <button onClick={() => console.log('click')}>click</button>
-      <Congrats />
-      {/* <GuessedWords guessedWords={[]}/> */}
+    <div className="container">
+      <h1>Jotto</h1>
+      
+      <Congrats success={true}/>
+      <GuessedWords guessedWords={[ {guessedWord: 'train', letterMatchCount: 3} ]}/>
     </div>
   )
 }
