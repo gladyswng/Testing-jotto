@@ -1,6 +1,6 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import * as Enzyme from 'enzyme'
+import { shallow, ShallowWrapper } from 'enzyme'
+// import  as Enzyme from 'enzyme'
 import GuessedWords from './GuessedWords'
 import { findByTestAttr } from '../test/testUtils'
 
@@ -16,7 +16,7 @@ const setup = (props:any={}) => {
 
 
 describe('if there are no words guessed', () => {
-  let wrapper:Enzyme.ShallowWrapper<React.Component<{}, {}, any>>
+  let wrapper:ShallowWrapper
 
   beforeEach(() => {
     
@@ -27,6 +27,7 @@ describe('if there are no words guessed', () => {
     const component = findByTestAttr(wrapper, 'component-guessed-words')
     expect(component.length).toBe(1)
   })
+  
   test('renders instruction to guess a word', () => {
     const instructions = findByTestAttr(wrapper, 'guess-instructions')
      expect(instructions.length).toBe(1)
@@ -35,7 +36,7 @@ describe('if there are no words guessed', () => {
 })
 
 describe('if there are words guessed', () => {
-  let wrapper: Enzyme.ShallowWrapper<any, Readonly<{}>, React.Component<{}, {}, any>>
+  let wrapper:ShallowWrapper
   const guessedWords = [
     {guessedwword: 'train', letterMatchCount: 3},
     {guessedwword: 'agile', letterMatchCount: 1},

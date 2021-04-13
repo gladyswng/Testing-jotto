@@ -6,7 +6,7 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({ success, secretWord }) => {
-  const [ currentGuess, setCurrentGuess ] = React.useState<string>()
+  const [ currentGuess, setCurrentGuess ] = React.useState<string>('')
 
   const submitHandler = (e:React.SyntheticEvent) => {
 
