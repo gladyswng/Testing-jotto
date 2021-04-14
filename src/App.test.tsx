@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from "enzyme";
 import App from "./App";
-import { findByTestAttr } from "./test/testUtils";
+import { findByTestAttr, storeFactory } from "./test/testUtils";
 
 // activate global mock to make sure getSecretWord doesn't make network call
 // any where here you see the action module being imported, i want to import from mocks module instead
@@ -10,9 +10,11 @@ jest.mock('./actions')
 // spy on getSecretWord in our test
 // this one is going to be the function inside __mocks__
 import { getSecretWord as mockGetSecretWord } from './actions'
+import { Provider } from 'react-redux';
 
 const setup = () => {
-  return mount(<App />)
+  const store = storeFactory() // no arguments because the default store will work just fine
+  return mount(<Provider store={store}><App /></Provider>)
 }
 
 test('renders without error', () => {

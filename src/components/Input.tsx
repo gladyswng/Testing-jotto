@@ -1,13 +1,15 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../reducers'
 
 interface InputProps {
   secretWord?: string
   success?: boolean
 }
 
-const Input: React.FC<InputProps> = ({ success, secretWord }) => {
+const Input: React.FC<InputProps> = ({ secretWord }) => {
   const [ currentGuess, setCurrentGuess ] = React.useState<string>('')
-
+  const success = useSelector((state:RootState) => state.success)
   const submitHandler = (e:React.SyntheticEvent) => {
 
     // TODO - update guessed words

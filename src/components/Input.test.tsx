@@ -1,9 +1,10 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import * as Enzyme from 'enzyme'
+import { mount } from 'enzyme'
+import { ReactWrapper } from 'enzyme'
 
-import { findByTestAttr } from '../test/testUtils'
+import { findByTestAttr, storeFactory } from '../test/testUtils'
 import Input from './Input'
+import { Provider } from 'react-redux'
 
 // const mockSetCurrentGuess = jest.fn()
 
@@ -12,16 +13,19 @@ import Input from './Input'
 //   useState: (initialState: string) => [initialState, mockSetCurrentGuess]
 // }))
 
-const setup = (success=false, secretWord='party') => {
-  return shallow(<Input success={success} secretWord={secretWord}/>)
+const setup = (initialState={}, secretWord='party') => {
+  // if we use shallow here then it would just give us the provider with a placeholder for the input child, but we're only interested in whats inside the component child - therefore mount
+  // here we create a store factory that is explicitly for our test
+  const store = storeFactory(initialState)
+  return mount(<Provider store={store}><Input secretWord={secretWord}/></Provider>)
 }
 
 describe('render', () => {
   describe('success is true', () => {
-    let wrapper: Enzyme.ShallowWrapper<any, Readonly<{}>>
+    let wrapper: ReactWrapper
 
     beforeEach(() => {
-      wrapper = setup(true)
+      wrapper = setup({ success: true })
 
     })
     test('renders without error', () => {
@@ -43,10 +47,10 @@ describe('render', () => {
   })
 
   describe('success is false', () => {
-    let wrapper: Enzyme.ShallowWrapper<any, Readonly<{}>>
+    let wrapper: ReactWrapper
 
     beforeEach(() => {
-      wrapper = setup(false)
+      wrapper = setup({success:false})
 
     })
     test('renders without error', () => {
@@ -76,7 +80,7 @@ describe('render', () => {
 describe('state controlled input field', () => {
 
   let mockSetCurrentGuess = jest.fn()
-  let wrapper: Enzyme.ShallowWrapper<any, Readonly<{}>>
+  let wrapper: ReactWrapper
   let originalUseState: any
   beforeEach(() => {
     mockSetCurrentGuess.mockClear()
@@ -92,8 +96,8 @@ describe('state controlled input field', () => {
 
   test('state updates with value of input box upon change', () => {
 
-
-    const wrapper = setup()
+    // remember that if success true theres no interaction with input
+    const wrapper = setup({success: false})
     const inputBox = findByTestAttr(wrapper, 'input-box') 
     const mockEvent = { target: {value: 'train'} }
     // simulating inputbox getting a value as train
