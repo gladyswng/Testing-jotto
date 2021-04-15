@@ -3,7 +3,7 @@ import { applyMiddleware, createStore } from 'redux'
 import { middlewares } from '../configureStore'
 import { rootReducer, RootState } from '../reducers'
 
-export const storeFactory = (initialState?:RootState| {}) => {
+export const storeFactory = (initialState?:RootState | any ) => {
   return createStore(rootReducer, initialState, applyMiddleware(...middlewares))
 }
 

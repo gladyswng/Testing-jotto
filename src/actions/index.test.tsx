@@ -1,14 +1,14 @@
 import moxios from 'moxios'
-import { actionTypes, correctGuess, getSecretWord } from '.'
+import { actionTypes,  getSecretWord } from '.'
 
-describe('correctGuess', () => {
-  test('returns an action with type `CORRECT_GUESS`', () => {
-    const action = correctGuess()
-    // Deep equal
-    expect(action).toStrictEqual({ type: actionTypes.CORRECT_GUESS })
+// describe('correctGuess', () => {
+//   test('returns an action with type `CORRECT_GUESS`', () => {
+//     const action = correctGuess()
+//     // Deep equal
+//     expect(action).toStrictEqual({ type: actionTypes.CORRECT_GUESS })
 
-  })
-})
+//   })
+// })
 
 describe('getSecretWord', () => {
   // tell axios to send request to moxios for every request instead of to the internet 

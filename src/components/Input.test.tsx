@@ -13,7 +13,7 @@ import { Provider } from 'react-redux'
 //   useState: (initialState: string) => [initialState, mockSetCurrentGuess]
 // }))
 
-const setup = (initialState={}, secretWord='party') => {
+const setup = (initialState={success: false}, secretWord='party') => {
   // if we use shallow here then it would just give us the provider with a placeholder for the input child, but we're only interested in whats inside the component child - therefore mount
   // here we create a store factory that is explicitly for our test
   const store = storeFactory(initialState)
