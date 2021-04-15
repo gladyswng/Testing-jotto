@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { getSecretWord } from './actions'
 import Congrats from './components/Congrats'
 import GuessedWords from './components/GuessedWords'
 import Input from './components/Input'
+import { RootState } from './reducers'
 
 
 interface AppProps {
@@ -12,10 +14,11 @@ interface AppProps {
 const App: React.FC<AppProps> = ({}) => {
 
   // TODO - get props from shared state
-  const success = false
+  const success = useSelector((state:RootState) => state.success)
+  const guessedWords = useSelector((state:RootState) => state.guessedWords)
+ 
   const secretWord = 'party'
-  const guessedWords: { guessedWord: string, letterMatchCount: number}[] = []
-
+ 
   useEffect(() => {
     getSecretWord()
   }, [])

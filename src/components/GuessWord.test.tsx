@@ -1,17 +1,26 @@
 import React from 'react'
 import { mount, ReactWrapper } from 'enzyme'
 import App from '../App'
-import { findByTestAttr } from '../test/testUtils'
+import { findByTestAttr, storeFactory } from '../test/testUtils'
+import { Provider } from 'react-redux'
+
+
+// activate global mock to make sure getSecretWord doesn't make network call
+// any where here you see the action module being imported, i want to import from mocks module instead
+
+jest.mock('../actions')
+
 // not isolated, mount on entire app component
 
 // Ceate wrapper with specified initial conditions, then submit a guessed word of 'train'
 
 // wrapper - not a shallow wrapper but a wrapper we get from mount which includes all of the contents of the children as well
 
-const setup = (state={}) => {
+const setup = (initialState={}) => {
+  const store = storeFactory(initialState)
 
   // TODO - apply state
-  const wrapper = mount(<App />)
+  const wrapper = mount(<Provider store={store}><App /></Provider>)
 
   // add value to input box
   const inputBox = findByTestAttr(wrapper, 'input-box')
@@ -32,7 +41,7 @@ const setup = (state={}) => {
 
 // seperate describes when each one is going to have initial state
 
-describe.skip('no words guessed', () => {
+describe('no words guessed', () => {
   let wrapper: ReactWrapper
 
   
@@ -51,7 +60,7 @@ describe.skip('no words guessed', () => {
 
 })
 
-describe.skip('some words guessed', () => {
+describe('some words guessed', () => {
   let wrapper: ReactWrapper
   
   beforeEach(() => {
@@ -71,7 +80,7 @@ describe.skip('some words guessed', () => {
   //   expect(guessedWordRows).toHaveLength(1)
 })
 
-describe.skip('guessed secret word', () => {
+describe('guessed secret word', () => {
   let wrapper: ReactWrapper
   
   beforeEach(() => {

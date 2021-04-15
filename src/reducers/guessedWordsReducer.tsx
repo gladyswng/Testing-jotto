@@ -11,7 +11,7 @@ interface IGuess {
 export default (state:IGuess[]=[], action:AnyAction) => {
   switch(action.type) {
     case actionTypes.GUESS_WORD: 
-
+      console.log(action.payload)
       return [...state, action.payload]
     default: 
       return state
